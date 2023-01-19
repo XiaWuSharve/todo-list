@@ -14,6 +14,7 @@ export default {
     setup() {
         const store = useTodoStore();
         let { todos } = JSON.parse(localStorage.getItem('todos')) || [];
+        console.log(todos);
         store.$patch({ todos });
         console.log(store)
         todos = storeToRefs(store).todos;
