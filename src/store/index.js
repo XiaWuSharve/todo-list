@@ -9,6 +9,7 @@ export const useTodoStore = defineStore('todos', {
     doneCount: state => state.todos.reduce((pre, todo) => pre + todo.done, 0),
     total: state => state.todos.length,
     allDone: state => state.doneCount === state.total,
+    halfProgress: state => state.doneCount >= 3,
   },
   actions: {
     addTodo(todo) {

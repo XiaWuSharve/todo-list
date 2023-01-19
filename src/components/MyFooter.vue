@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-space-between">
-        <v-checkbox :label="completeInfo" v-model="check"></v-checkbox>
+        <v-checkbox :label="completeInfo" v-model="check" @check-all="updateAll(true)"></v-checkbox>
         <v-btn @click="clearDone">删除已完成</v-btn>
     </div>
 </template>

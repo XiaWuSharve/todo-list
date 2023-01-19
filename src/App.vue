@@ -5,10 +5,10 @@
                 <v-card-title>
                     <MyHeader></MyHeader>
                 </v-card-title>
-                <v-card-text v-show="!todoEmpty">
+                <v-card-text v-show="!empty">
                     <MyList></MyList>
                 </v-card-text>
-                <v-card-text v-show="!todoEmpty">
+                <v-card-text v-show="!empty">
                     <MyFooter></MyFooter>
                 </v-card-text>
             </v-card>
@@ -27,7 +27,9 @@ export default {
     name: 'App',
     components: { MyList, MyHeader, MyFooter },
     setup() {
-        return { todoEmpty: storeToRefs(useTodoStore()).empty }
-    }
+        const refStore = storeToRefs(useTodoStore());
+        const { empty, halfProgress } = refStore;
+        return { empty, halfProgress }
+    },
 }
 </script>
