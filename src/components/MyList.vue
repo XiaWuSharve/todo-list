@@ -13,8 +13,7 @@ export default {
     components: { MyItem },
     setup() {
         const store = useTodoStore();
-        let { todos } = JSON.parse(localStorage.getItem('todos')) || [];
-        console.log(todos);
+        let { todos } = JSON.parse(localStorage.getItem('todos')) || { todos: [] };
         store.$patch({ todos });
         console.log(store)
         todos = storeToRefs(store).todos;
