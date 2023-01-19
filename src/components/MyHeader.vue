@@ -1,11 +1,16 @@
 <template>
-    <input @keydown.enter="add" v-model="text" type="text">
+    <v-text-field label="输入待办事项，回车确认" @keydown.enter="add" v-model="text"></v-text-field>
 </template>
 
 <script>
 import { nanoid } from 'nanoid'
+import { useTodoStore } from '@/store'
 export default {
     name: 'MyHeader',
+    setup() {
+        const { addTodo } = useTodoStore();
+        return { addTodo }
+    },
     data() {
         return {
             text: '',
@@ -14,20 +19,10 @@ export default {
     methods: {
         add() {
             if (!this.text.trim()) return;
-            const todoObj = { id: nanoid(), title: this.text, done: false }
-            this.$emit('add-todo', todoObj);
+            const todoObj = { id: nanoid(), title: this.text, done: false, isEditing: false }
+            this.addTodo(todoObj)
             this.text = '';
         }
     }
 }
 </script>
-
-<style scoped>
-input {
-    width: calc(100% - 10px);
-    height: 2rem;
-    margin: 5px;
-    border: 2px #3f3f3f3f solid;
-    border-radius: 5px;
-}
-</style>

@@ -1,49 +1,32 @@
 <template>
-    <div>
-        <input type="checkbox" id="all" v-model="check">
-        <label for="all">完成{{ done }}/全部{{ todos.length }}</label>
-        <button @click="$emit('delete-done')">删除已完成</button>
+    <div class="d-flex justify-space-between">
+        <v-checkbox :label="completeInfo" v-model="check"></v-checkbox>
+        <v-btn @click="clearDone">删除已完成</v-btn>
     </div>
 </template>
 
 <script>
+import { useTodoStore } from '@/store';
+import { storeToRefs } from 'pinia';
 export default {
     name: 'MyFooter',
-    props: ['todos'],
+    setup() {
+        const store = useTodoStore();
+        const { doneCount, updateAll, clearDone, allDone, total } = storeToRefs(store);
+        return { doneCount, updateAll, clearDone, allDone, total };
+    },
     computed: {
-        done() {
-            return this.todos.reduce((pre, now) => pre + now.done, 0);
-        },
         check: {
             get() {
-                return this.done === this.todos.length
+                return this.allDone;
             },
             set(checked) {
-                this.todos.forEach(v => v.done = checked)
+                this.updateAll(checked)
             }
+        },
+        completeInfo() {
+            return `完成${this.doneCount}/全部${this.total}`
         }
     },
-
 }
 </script>
-
-<style scoped>
-div {
-    margin: 5px;
-    padding: 2px;
-    overflow: hidden;
-}
-
-input {
-    display: inline-block;
-    margin: 2px;
-}
-
-button {
-    float: right;
-    background: red;
-    border-radius: 5px;
-    padding: 2px;
-    color: white;
-}
-</style>
