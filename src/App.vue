@@ -22,6 +22,7 @@ import MyHeader from './components/MyHeader.vue'
 import MyFooter from './components/MyFooter.vue'
 import { useTodoStore } from './store'
 import { storeToRefs } from 'pinia'
+import message from './utils/message.ts'
 
 export default {
     name: 'App',
@@ -31,5 +32,9 @@ export default {
         const { empty, halfProgress } = refStore;
         return { empty, halfProgress }
     },
+    mounted() {
+        console.log(this)
+        message.setListener()
+    }
 }
 </script>

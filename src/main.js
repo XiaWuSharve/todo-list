@@ -17,6 +17,8 @@ export const vm = new Vue({
     components: { App },
     render: h => h(App),
     pinia,
-    vuetify
+    vuetify,
+    beforeCreate() {
+        Vue.prototype.$bus = this
+    },
 }).$mount('#app');
-message.setListener();

@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-space-between">
-        <v-checkbox :label="completeInfo" v-model="check" @check-all="updateAll(true)"></v-checkbox>
+        <v-checkbox :label="completeInfo" v-model="check"></v-checkbox>
         <v-btn @click="clearDone">删除已完成</v-btn>
     </div>
 </template>
@@ -28,5 +28,8 @@ export default {
             return `完成${this.doneCount}/全部${this.total}`
         }
     },
+    mounted() {
+        this.$bus.$on('check-all', this.updateAll);
+    }
 }
 </script>
